@@ -34,11 +34,10 @@ export class Main extends Application {
     LoadAll() {
         const loader = new Loader();
         loader.add("background", `./src/img/BG.png`)
+            .add("menu-desk", `./src/img/menu-desk.png`)
+            .add("buttuns-desk", `./src/img/buttuns-desk.png`)
             .add("character", `./src/img/character.json`)
-        //     .add("soundOn", `./src/img/soundOn.svg`)
-        //     .add("soundOff", `./src/img/soundOff.svg`)
-        //     .add("ambiente", `./src/music/ambiente.mp3`)
-        //     .add("choice", `./src/music/choice.mp3`)
+
 
         loader.load(() => {
 
