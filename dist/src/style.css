@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "sofiapro";
+    src: url('src/fonts/sofiapro-light.otf') format('opentype');
+}
+
 body,
 html {
     /* background-color: black; */
@@ -5,7 +10,7 @@ html {
     height: 100%;
     overflow: hidden;
     text-align: center;
-    font-family: "Roboto-Regular";
+    font-family: "sofiapro";
 }
 
 canvas {

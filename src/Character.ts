@@ -1,12 +1,13 @@
 import * as PIXI from "pixi.js";
-import { Sprite } from "pixi.js";
 import { Main } from "./Main";
 import gsap from "gsap";
 export default class Character extends PIXI.Container {
     private app: Main;
-    private container: PIXI.Container;
-    public Background: PIXI.Sprite = Sprite.from("background");
-    public Text: PIXI.Text = new PIXI.Text();
+    public container: PIXI.Container;
+    public Ball: PIXI.Sprite = PIXI.Sprite.from("ball");
+    public animating = false;
+    public click = false;
+    public curva = 12;
     public body;
     public spine;
     public head;
@@ -27,7 +28,7 @@ export default class Character extends PIXI.Container {
                 x: 140,
                 y: 200,
                 rotation: 0.2,
-                duration: 0.8
+                duration: 0.8,
             },
             {
                 x: 140,
@@ -69,7 +70,7 @@ export default class Character extends PIXI.Container {
             {
                 x: 28,
                 y: 125,
-                rotation:0,
+                rotation: 0,
                 duration: 0.5,
             }
         ],
@@ -111,17 +112,10 @@ export default class Character extends PIXI.Container {
         console.log(this.mapMoviment);
 
         this.container = new PIXI.Container();
-
-        this.app.stage.addChild(this.container);
-
-        // this.base = this.setters(75, 445, 0, 0, `base.png`);
-
+        this.addChild(this.container);
 
         this.legR = this.setters(100, 355, 1, 0, `canela-d.png`);
         this.footR = this.setters(23, 395, 0.5, 0, `pe-d.png`);
-
-
-
 
         this.body = this.setters(140, 197, 0, 0, `tronco.png`);
 
@@ -170,25 +164,31 @@ export default class Character extends PIXI.Container {
         this.body.addChild(this.armR);
         this.container.addChild(this.body);
 
-
+        this.Ball.anchor.set(0.5);
+        this.Ball.position.set(240, 450);
+        this.container.addChild(this.Ball);
 
         this.app.ticker.add(this.update.bind(this));
 
-        this.app.stage.interactive = true;
-        this.app.stage.on('pointerdown', () => {
-            this.move(this.body, this.mapMoviment["body"]);
-            this.move(this.armL, this.mapMoviment["armL"]);
-            this.move(this.armR, this.mapMoviment["armR"]);
-            this.move(this.thighR, this.mapMoviment["thighR"]);
-            this.move(this.legR, this.mapMoviment["legR"]);
-            this.move(this.thighL, this.mapMoviment["thighL"]);
-            this.move(this.legL, this.mapMoviment["legL"]);
-        });
+        this.scale.set(0.96);
+
     }
 
     update(delta: number) {
         // console.log(delta);
+        if (this.animating) {
+            this.Ball.x += 15 * delta; // Controla a velocidade da animação
+            if (this.Ball.x > this.app.screen.width + 100) {
+                this.animating = false;
+            }
 
+            const decrementAmount = this.curva * delta; // Ajuste esse valor para controlar a velocidade da desaceleração
+            this.Ball.y -= decrementAmount;
+            this.curva = this.curva - 0.3;
+
+            this.Ball.rotation += 0.08 * delta;
+
+        }
     }
 
     setters(x: number, y: number, ax = 0, ay = 0, image: PIXI.TextureSource, pointer = false, rotation = 0) {
@@ -196,12 +196,9 @@ export default class Character extends PIXI.Container {
         peace.anchor.set(ax, ay);
         peace.rotation = rotation;
         peace.position.set(x, y);
-        if (pointer) {
+        if (pointer && false) {
             let pointer = this.pointer();
             peace.addChild(pointer);
-            // Posicione o círculo na posição da âncora
-            // pointer.position.set(peace.width * peace.anchor.x, peace.height * peace.anchor.y);
-
         }
         return peace;
     }
@@ -229,5 +226,31 @@ export default class Character extends PIXI.Container {
         });
     }
 
+    animBall() {
+        if (this.Ball.x == 240) {
+            this.app.game.setText();
+            if (!this.animating) {
+                this.animating = true;
+            }
+        }
+    }
+
+    play() {
+        if (!this.click) {
+            this.click = true;
+            this.move(this.body, this.mapMoviment["body"]);
+            this.move(this.armL, this.mapMoviment["armL"]);
+            this.move(this.armR, this.mapMoviment["armR"]);
+            this.move(this.thighR, this.mapMoviment["thighR"]);
+            this.move(this.legR, this.mapMoviment["legR"]);
+            this.move(this.thighL, this.mapMoviment["thighL"]);
+            this.move(this.legL, this.mapMoviment["legL"]);
+
+            setTimeout(() => {
+                this.animBall();
+            }, 1050);
+        }
+
+    }
 
 }

@@ -35,6 +35,7 @@ export class Main extends Application {
         const loader = new Loader();
         loader.add("background", `./src/img/BG.png`)
             .add("menu-desk", `./src/img/menu-desk.png`)
+            .add("ball", `./src/img/ball.png`)
             .add("buttuns-desk", `./src/img/buttuns-desk.png`)
             .add("character", `./src/img/character.json`)
 
