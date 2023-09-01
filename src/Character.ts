@@ -180,6 +180,8 @@ export default class Character extends PIXI.Container {
             this.Ball.x += 15 * delta; // Controla a velocidade da animação
             if (this.Ball.x > this.app.screen.width + 100) {
                 this.animating = false;
+                console.log('troca de cena');
+                this.app.event.emit("endSceneOne");
             }
 
             const decrementAmount = this.curva * delta; // Ajuste esse valor para controlar a velocidade da desaceleração

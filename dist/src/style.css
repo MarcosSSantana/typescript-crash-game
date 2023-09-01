@@ -1,6 +1,7 @@
 @font-face {
     font-family: "sofiapro";
-    src: url('src/fonts/sofiapro-light.otf') format('opentype');
+    /* font-weight: 700; */
+    src: url('../src/fonts/sofiapro-light.otf') format('opentype');
 }
 
 body,

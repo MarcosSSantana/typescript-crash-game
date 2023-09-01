@@ -29,6 +29,11 @@
         console.log("fim do carregamento do jogo");
       });
 
+      app.event.on("playing", () => {
+        console.log("inicio jogada");
+        app.game.Scene.Character.play()
+      });
+
 
     };
 

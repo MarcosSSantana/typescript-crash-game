@@ -13,6 +13,8 @@ export default class SceneOne extends PIXI.Container {
         this.container = new PIXI.Container();
         this.addChild(this.container);
 
+        this.Background.scale.set(0.48);
+        this.Background.y = -870;
         this.container.addChild(this.Background);
 
         this.Character = new Character(this.app);

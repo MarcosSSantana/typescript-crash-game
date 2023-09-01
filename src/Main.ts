@@ -33,9 +33,11 @@ export class Main extends Application {
     }
     LoadAll() {
         const loader = new Loader();
-        loader.add("background", `./src/img/BG.png`)
+        loader
+            .add("background", `./src/img/background.png`)
             .add("menu-desk", `./src/img/menu-desk.png`)
             .add("ball", `./src/img/ball.png`)
+            .add("ballTwo", `./src/img/ballTwo.png`)
             .add("buttuns-desk", `./src/img/buttuns-desk.png`)
             .add("character", `./src/img/character.json`)
 
