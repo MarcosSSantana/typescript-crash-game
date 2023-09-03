@@ -22,7 +22,7 @@ module.exports = {
     output: {
         filename: 'main.js',
         path: distPath,
-        library: 'VirtualCup',
+        library: 'Crash',
         libraryTarget: 'umd'
     },
     // optimization: {

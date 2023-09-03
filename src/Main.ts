@@ -10,7 +10,7 @@ export class Main extends Application {
     public txtLoading;
     public event = new PIXI.utils.EventEmitter();
 
-    constructor() {
+    constructor(data:{src:string}) {
         super({
             // backgroundColor: 0x2c9e0b,
             width: 1040,
@@ -26,20 +26,20 @@ export class Main extends Application {
             fill: '#ff0000'
         }));
         this.txtLoading.anchor.set(0.5);
-        this.txtLoading.position.set(this.screen.width / 2, this.screen.height / 2 + 300)
+        this.txtLoading.position.set(this.screen.width / 2, this.screen.height / 2 )
         this.stage.addChild(this.txtLoading);
 
-        this.LoadAll()
+        this.LoadAll(data)
     }
-    LoadAll() {
+    LoadAll(data: any) {
         const loader = new Loader();
         loader
-            .add("background", `./src/img/background.png`)
-            .add("menu-desk", `./src/img/menu-desk.png`)
-            .add("ball", `./src/img/ball.png`)
-            .add("ballTwo", `./src/img/ballTwo.png`)
-            .add("buttuns-desk", `./src/img/buttuns-desk.png`)
-            .add("character", `./src/img/character.json`)
+            .add("background", `${data.src}/img/background.png`)
+            .add("menu-desk", `${data.src}/img/menu-desk.png`)
+            .add("ball", `${data.src}/img/ball.png`)
+            .add("ballTwo", `${data.src}/img/ballTwo.png`)
+            .add("buttuns-desk", `${data.src}/img/buttuns-desk.png`)
+            .add("character", `${data.src}/img/character.json`)
 
 
         loader.load(() => {

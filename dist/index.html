@@ -20,7 +20,7 @@
   <div id="game"></div>
   <script src="main.js"></script>
   <script>
-    const app = new VirtualCup.Main();
+    const app = new Crash.Main({src:'./src'});
 
     window.onload = (event) => {
       document.getElementById("game").appendChild(app.view);
@@ -31,7 +31,9 @@
 
       app.event.on("playing", () => {
         console.log("inicio jogada");
-        app.game.Scene.Character.play()
+        app.game.Scene.play();
+        app.game.setCurrentTotal(1);
+
       });
 
 

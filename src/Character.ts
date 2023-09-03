@@ -4,10 +4,7 @@ import gsap from "gsap";
 export default class Character extends PIXI.Container {
     private app: Main;
     public container: PIXI.Container;
-    public Ball: PIXI.Sprite = PIXI.Sprite.from("ball");
-    public animating = false;
     public click = false;
-    public curva = 12;
     public body;
     public spine;
     public head;
@@ -164,33 +161,8 @@ export default class Character extends PIXI.Container {
         this.body.addChild(this.armR);
         this.container.addChild(this.body);
 
-        this.Ball.anchor.set(0.5);
-        this.Ball.position.set(240, 450);
-        this.container.addChild(this.Ball);
-
-        this.app.ticker.add(this.update.bind(this));
-
         this.scale.set(0.96);
 
-    }
-
-    update(delta: number) {
-        // console.log(delta);
-        if (this.animating) {
-            this.Ball.x += 15 * delta; // Controla a velocidade da animação
-            if (this.Ball.x > this.app.screen.width + 100) {
-                this.animating = false;
-                console.log('troca de cena');
-                this.app.event.emit("endSceneOne");
-            }
-
-            const decrementAmount = this.curva * delta; // Ajuste esse valor para controlar a velocidade da desaceleração
-            this.Ball.y -= decrementAmount;
-            this.curva = this.curva - 0.3;
-
-            this.Ball.rotation += 0.08 * delta;
-
-        }
     }
 
     setters(x: number, y: number, ax = 0, ay = 0, image: PIXI.TextureSource, pointer = false, rotation = 0) {
@@ -228,14 +200,6 @@ export default class Character extends PIXI.Container {
         });
     }
 
-    animBall() {
-        if (this.Ball.x == 240) {
-            this.app.game.setText();
-            if (!this.animating) {
-                this.animating = true;
-            }
-        }
-    }
 
     play() {
         if (!this.click) {
@@ -247,10 +211,6 @@ export default class Character extends PIXI.Container {
             this.move(this.legR, this.mapMoviment["legR"]);
             this.move(this.thighL, this.mapMoviment["thighL"]);
             this.move(this.legL, this.mapMoviment["legL"]);
-
-            setTimeout(() => {
-                this.animBall();
-            }, 1050);
         }
 
     }

@@ -2,6 +2,7 @@ import * as PIXI from "pixi.js";
 import { Main } from "./Main";
 import SceneOne from "./SceneOne";
 import SceneTwo from "./SceneTwo";
+import SceneThree from "./SceneThree";
 export default class GameScene {
     private app: Main;
     private container: PIXI.Container;
@@ -9,7 +10,9 @@ export default class GameScene {
     public Butons: PIXI.Sprite = PIXI.Sprite.from("buttuns-desk");
     public Scene: PIXI.Container;
     public animating = false;
-    public time = 0;
+    public endGame = false;
+    public current = 0;
+    public currentTotal = 0;
     public speed = 0.01;
     public FontStyle = new PIXI.TextStyle({
         fontFamily: "sofiapro",
@@ -40,7 +43,7 @@ export default class GameScene {
 
         this.Butons.interactive = true;
         this.Butons.on('pointerdown', () => {
-            if (!this.animating) {
+            if (!this.animating && !this.endGame) {
                 this.app.event.emit("playing");
             }
         });
@@ -58,20 +61,38 @@ export default class GameScene {
     }
 
     update(delta: number) {
-        if (this.animating) {
-            this.time += delta * this.speed;
-            this.Text.text = `${this.time.toFixed(2)}X`
+        if (this.animating && !this.endGame) {
+
+            if (this.current >= this.currentTotal) {
+                this.endGame = true;
+                this.endScene();
+                return;
+            }
+
+            this.current += delta * this.speed;
+            this.Text.text = `${this.current.toFixed(2)}X`.toUpperCase();
         }
+
+
     }
 
     setText() {
         this.Text.anchor.set(0.5, 0.5);
-        this.Text.position.set(this.app.screen.width / 2, 430)
+        this.Text.position.set(this.app.screen.width / 2, 410)
         this.container.addChild(this.Text);
         this.animating = true;
     }
 
+    setCurrentTotal(valor: number) {
+        this.currentTotal = valor;
+    }
 
+    endScene() {
+        this.container.removeChild(this.Scene);
 
+        this.Scene = new SceneThree(this.app);
 
+        this.container.addChild(this.Scene);
+        this.container.setChildIndex(this.Scene, 0);
+    }
 }

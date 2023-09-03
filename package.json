@@ -1,8 +1,8 @@
 {
-  "name": "virtual-cup-game",
+  "name": "crash-game",
   "version": "1.0.0",
   "private": true,
-  "description": "virtual-cup-game",
+  "description": "crash-game",
   "main": "main.js",
   "scripts": {
     "start": "webpack-dev-server",
