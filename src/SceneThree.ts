@@ -39,19 +39,30 @@ export default class SceneThree extends PIXI.Container {
     update(delta: number) {
         if (this.animating) {
             this.Ball.x += 15 * delta; // Controla a velocidade da animação
-            if (this.Ball.x > this.app.screen.width + 100) {
+            if (this.Ball.x > this.app.screen.width) {
                 this.animating = false;
                 this.app.event.emit("endGame");
+                this.endAnimation();
+
             }
 
             const decrementAmount = this.curva * delta; // Ajuste esse valor para controlar a velocidade da desaceleração
             this.Ball.y += decrementAmount;
             this.curva = this.curva + 0.2;
-            
+
             this.Ball.rotation += 0.08 * delta;
 
         }
 
+    }
+
+    endAnimation() {
+        gsap.to(this.Ball, {
+            x: 1000,
+            y: 500,
+            rotation: 1,
+            duration: 1
+        })
     }
 
 }

@@ -66,11 +66,12 @@ export default class GameScene {
             if (this.current >= this.currentTotal) {
                 this.endGame = true;
                 this.endScene();
+                this.setCurrent(this.currentTotal);
                 return;
+            }else{
+                this.setCurrent(this.current += delta * this.speed);
             }
 
-            this.current += delta * this.speed;
-            this.Text.text = `${this.current.toFixed(2)}X`.toUpperCase();
         }
 
 
@@ -85,6 +86,10 @@ export default class GameScene {
 
     setCurrentTotal(valor: number) {
         this.currentTotal = valor;
+    }
+
+    setCurrent(valor: number) {
+        this.Text.text = `${valor.toFixed(2)}X`.toUpperCase();
     }
 
     endScene() {
