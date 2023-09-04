@@ -1,3 +1,18 @@
-# Projeto em PixiJS usando TypeScript
+# Challenge Crash
 
-Este projeto é um exemplo de como usar o PixiJS com TypeScript para criar um jogo básico em navegador. O objetivo é fornecer um modelo que possa ser usado para se basear em outros projetos.
+This project creates a game module that can be started in any javascript framework
+
+```copy
+// Installation
+npm i
+```
+
+```copy
+// to start the project
+npm run start 
+```
+
+```copy
+// to generate the build
+npm run build 
+```
